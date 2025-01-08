@@ -1,4 +1,5 @@
 uvicorn==0.34.0
 fastapi==0.115.6
 gluonnlp
+transformers
 git+https://github.com/SKTBrain/KoBERT.git#egg=kobert_tokenizer&subdirectory=kobert_hf
