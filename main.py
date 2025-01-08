@@ -31,8 +31,8 @@ def read_root(query: str):
 urls = [
     "https://drive.google.com/uc?id=1HneFlLGphn4whQQ7Zq9NDJLcGpOaPZCc",
     "https://drive.google.com/uc?id=1s2vnnVGr6Wq3QGFMf_t1Kgordj4d4LX0",
-    "https://drive.google.com/uc?id=1V_3hQ0Dl7eLqPqBFV9Y1RVFaCnHpGc6Q",
-    "https://drive.google.com/uc?id=1wECnYHg9XOzYEYx-ab6SvuZy9pj4pRcZ",
+    # "https://drive.google.com/uc?id=1V_3hQ0Dl7eLqPqBFV9Y1RVFaCnHpGc6Q",
+    # "https://drive.google.com/uc?id=1wECnYHg9XOzYEYx-ab6SvuZy9pj4pRcZ",
 ]
 # 외부에서 선언된 i (다운로드 시작 인덱스)
 i = 2  # 시작 인덱스를 설정
@@ -48,11 +48,11 @@ for url in urls:
     i += 1  # 다음 인덱스로 증가
 
 # 압축 파일 병합
-parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin', 'model_pt_folder/chunk_4.bin', 'model_pt_folder/chunk_5.bin']
-merge_files('model_state_dict.pt', parts1)
-
 parts2 = ['bertmodel_folder/chunk_0.bin', 'bertmodel_folder/chunk_1.bin', 'bertmodel_folder/chunk_2.bin', 'bertmodel_folder/chunk_3.bin']
 merge_files('kobert_base_v1/model.safetensors', parts2)
+
+parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin', 'model_pt_folder/chunk_4.bin', 'model_pt_folder/chunk_5.bin']
+merge_files('model_state_dict.pt', parts1)
 
 # bertmodel & tokenizer 다운로드 
 print('bertmodel 다운 중...')
