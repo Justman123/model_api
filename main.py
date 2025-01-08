@@ -28,21 +28,21 @@ def read_root(query: str):
 # google drive에서 model.pt 다운로드
 
 # URL 리스트
-urls1 = [
-    "https://drive.google.com/uc?id=115TKxODj7F8oUyxwSBIJCF2md90cc2e8"
-]
-# 외부에서 선언된 i (다운로드 시작 인덱스)
-i = 2  # 시작 인덱스를 설정
+# urls1 = [
+#     "https://drive.google.com/uc?id=115TKxODj7F8oUyxwSBIJCF2md90cc2e8"
+# ]
+# # 외부에서 선언된 i (다운로드 시작 인덱스)
+# i = 2  # 시작 인덱스를 설정
 
-# model_pt_chunk 파일 다운로드
-for url in urls1:
-    output_file = f"chunk_{i}.bin"  # 기본 파일 이름 설정
-    print(f"Downloading {url} to {output_file}...")
-    try:
-        gdown.download(url, output_file, quiet=False)
-    except Exception as e:
-        print(f"Failed to download {url}: {e}")
-    i += 1  # 다음 인덱스로 증가
+# # model_pt_chunk 파일 다운로드
+# for url in urls1:
+#     output_file = f"chunk_{i}.bin"  # 기본 파일 이름 설정
+#     print(f"Downloading {url} to {output_file}...")
+#     try:
+#         gdown.download(url, output_file, quiet=False)
+#     except Exception as e:
+#         print(f"Failed to download {url}: {e}")
+#     i += 1  # 다음 인덱스로 증가
 
 
 parts1 = ['chunk_0.bin', 'chunk_1.bin', 'chunk_2.bin', 'chunk_3.bin', 'chunk_4.bin', 'chunk_5.bin']
