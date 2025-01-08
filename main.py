@@ -3,7 +3,6 @@ from transformers import BertModel
 from kobert_tokenizer import KoBERTTokenizer
 import gluonnlp as nlp
 import numpy as np
-np.bool = np.bool_
 
 # 압축 파일 병합 함수
 def merge_files(output_path, input_parts):

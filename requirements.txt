@@ -5,5 +5,5 @@ transformers
 mxnet
 tqdm
 sentencepiece
-numpy
+numpy=1.23.1
 git+https://github.com/SKTBrain/KoBERT.git#egg=kobert_tokenizer&subdirectory=kobert_hf
