@@ -66,7 +66,7 @@ for url in urls2:
     i += 1  # 다음 인덱스로 증가
 print('2차 다운 완료!')
 
-parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin', 'model_pt_folder/chunk_4.bin', 'model_pt_folder/chunk_5.bin']
+parts1 = ['chunk_0.bin', 'chunk_1.bin', 'chunk_2.bin', 'chunk_3.bin', 'chunk_4.bin', 'chunk_5.bin']
 merge_files('model_state_dict.pt', parts1)
 
 # bertmodel & tokenizer 다운로드 
