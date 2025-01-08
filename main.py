@@ -36,7 +36,7 @@ urls = [
 ]
 
 # 외부에서 선언된 i (다운로드 시작 인덱스)
-i = 1  # 시작 인덱스를 설정
+i = 0  # 시작 인덱스를 설정
 
 # model_pt_chunk 파일 다운로드
 for url in urls:
