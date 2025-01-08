@@ -39,7 +39,7 @@ urls = [
 # 외부에서 선언된 i (다운로드 시작 인덱스)
 i = 1  # 시작 인덱스를 설정
 
-# 파일 다운로드
+# model_pt_chunk 파일 다운로드
 for url in urls:
     output_file = f"model_pt_folder/chunk_{i}"  # 기본 파일 이름 설정
     print(f"Downloading {url} to {output_file}...")
