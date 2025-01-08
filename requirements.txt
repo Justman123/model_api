@@ -6,4 +6,5 @@ mxnet
 tqdm
 sentencepiece
 numpy==1.26.4
+torch
 git+https://github.com/SKTBrain/KoBERT.git#egg=kobert_tokenizer&subdirectory=kobert_hf
