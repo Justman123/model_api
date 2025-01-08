@@ -30,13 +30,13 @@ def read_root(query: str):
 # URL 리스트
 urls = [
     # "https://drive.google.com/uc?id=1z1l6EM-vDwGJYE4L6EtrbsBzBf2vIlSv",
-    # "https://drive.google.com/uc?id=1OSCriayc9Z9yZZ9agNRN2hKwcTKoDj7K",
+    "https://drive.google.com/uc?id=1OSCriayc9Z9yZZ9agNRN2hKwcTKoDj7K",
     "https://drive.google.com/uc?id=1xScfIB1ZlICfxQnQsvIngnXHbNkdPKOR",
-    "https://drive.google.com/uc?id=1zeNzeCuoiACeUHSU7bZN0e_0CLDAhle6",
+    # "https://drive.google.com/uc?id=1zeNzeCuoiACeUHSU7bZN0e_0CLDAhle6",
 ]
 
 # 외부에서 선언된 i (다운로드 시작 인덱스)
-i = 2  # 시작 인덱스를 설정
+i = 1  # 시작 인덱스를 설정
 
 # model_pt_chunk 파일 다운로드
 for url in urls:
