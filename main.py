@@ -25,8 +25,8 @@ def read_root(query: str):
     return {"query" : query}
 
 # 압축 파일 병합
-# parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin']
-# merge_files('model_state_dict.pt', parts1)
+parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin']
+merge_files('model_state_dict.pt', parts1)
 
 parts2 = ['bertmodel_folder/chunk_0.bin', 'bertmodel_folder/chunk_1.bin', 'bertmodel_folder/chunk_2.bin', 'bertmodel_folder/chunk_3.bin']
 merge_files('kobert_base_v1/model.safetensors', parts2)
