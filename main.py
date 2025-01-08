@@ -29,9 +29,9 @@ def read_root(query: str):
 
 # URL 리스트
 urls = [
-    "https://drive.google.com/uc?id=1vdQ6-eoetgIxNDh8NTAVm9S_Zu3RwBds",
-    "https://drive.google.com/uc?id=1Ys10nBs-gvAEetmyjTXLlKp8YZpzCH2H",
-    "https://drive.google.com/uc?id=1sGINbXMp3bKmu_5OeGkz8yLpF8m8R4o2",
+    # "https://drive.google.com/uc?id=1vdQ6-eoetgIxNDh8NTAVm9S_Zu3RwBds",
+    # "https://drive.google.com/uc?id=1Ys10nBs-gvAEetmyjTXLlKp8YZpzCH2H",
+    # "https://drive.google.com/uc?id=1sGINbXMp3bKmu_5OeGkz8yLpF8m8R4o2",
     "https://drive.google.com/uc?id=1RJo8w01-dZyRDAxKDBCCEzWo64kZupOl",
 
 ]
