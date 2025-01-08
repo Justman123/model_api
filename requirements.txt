@@ -1,7 +1,6 @@
 uvicorn==0.34.0
 fastapi==0.115.6
 gluonnlp
-gdown
 transformers
 mxnet
 tqdm
