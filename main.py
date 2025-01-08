@@ -29,14 +29,13 @@ def read_root(query: str):
 
 # URL 리스트
 urls = [
-    # "https://drive.google.com/uc?id=1z1l6EM-vDwGJYE4L6EtrbsBzBf2vIlSv",
-    "https://drive.google.com/uc?id=1OSCriayc9Z9yZZ9agNRN2hKwcTKoDj7K",
-    "https://drive.google.com/uc?id=1xScfIB1ZlICfxQnQsvIngnXHbNkdPKOR",
-    # "https://drive.google.com/uc?id=1zeNzeCuoiACeUHSU7bZN0e_0CLDAhle6",
+    "https://drive.google.com/uc?id=1HneFlLGphn4whQQ7Zq9NDJLcGpOaPZCc",
+    "https://drive.google.com/uc?id=1s2vnnVGr6Wq3QGFMf_t1Kgordj4d4LX0",
+    "https://drive.google.com/uc?id=1V_3hQ0Dl7eLqPqBFV9Y1RVFaCnHpGc6Q",
+    "https://drive.google.com/uc?id=1wECnYHg9XOzYEYx-ab6SvuZy9pj4pRcZ",
 ]
-
 # 외부에서 선언된 i (다운로드 시작 인덱스)
-i = 1  # 시작 인덱스를 설정
+i = 2  # 시작 인덱스를 설정
 
 # model_pt_chunk 파일 다운로드
 for url in urls:
@@ -49,7 +48,7 @@ for url in urls:
     i += 1  # 다음 인덱스로 증가
 
 # 압축 파일 병합
-parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin']
+parts1 = ['model_pt_folder/chunk_0.bin', 'model_pt_folder/chunk_1.bin', 'model_pt_folder/chunk_2.bin', 'model_pt_folder/chunk_3.bin', 'model_pt_folder/chunk_4.bin', 'model_pt_folder/chunk_5.bin']
 merge_files('model_state_dict.pt', parts1)
 
 parts2 = ['bertmodel_folder/chunk_0.bin', 'bertmodel_folder/chunk_1.bin', 'bertmodel_folder/chunk_2.bin', 'bertmodel_folder/chunk_3.bin']
