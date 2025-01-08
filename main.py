@@ -40,7 +40,7 @@ i = 1  # 시작 인덱스를 설정
 
 # model_pt_chunk 파일 다운로드
 for url in urls:
-    output_file = f"model_pt_folder/chunk_{i}"  # 기본 파일 이름 설정
+    output_file = f"model_pt_folder/chunk_{i}.bin"  # 기본 파일 이름 설정
     print(f"Downloading {url} to {output_file}...")
     try:
         gdown.download(url, output_file, quiet=False)
