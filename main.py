@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import numpy as np
 np.bool = np.bool_
+import torch
 from transformers import BertModel
 from kobert_tokenizer import KoBERTTokenizer
 import gluonnlp as nlp
