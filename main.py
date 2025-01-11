@@ -2,9 +2,18 @@ from fastapi import FastAPI
 import numpy as np
 np.bool = np.bool_
 import torch
+import gluonnlp as nlp
+import torch
+from torch import nn
+import torch.nn.functional as F
+import torch.optim as optim
+from torch.utils.data import Dataset, DataLoader
+from tqdm import tqdm, tqdm_notebook
+from tqdm.notebook import tqdm
+from transformers import AdamW
+from transformers.optimization import get_cosine_schedule_with_warmup
 from transformers import BertModel
 from kobert_tokenizer import KoBERTTokenizer
-import gluonnlp as nlp
 
 # 압축 파일 병합 함수
 def merge_files(output_path, input_parts):
@@ -24,35 +33,6 @@ def read_root(query: str):
     return {"query" : query}
 
 
-# http로 파일 다운
-import requests
-
-# Google Drive 다운로드 링크 리스트
-links = [
-    "https://drive.google.com/uc?id=115TKxODj7F8oUyxwSBIJCF2md90cc2e8&export=download",
-    "https://drive.google.com/uc?id=1dRPT9QBzBMuKUAEOx6lVqRI-vbylwDnL&export=download",
-    "https://drive.google.com/uc?id=19sWrbp_oUFETVATh2T3qziSOZKyT7D64&export=download",
-    "https://drive.google.com/uc?id=1pBYSD4VO7hsL0sMzakH7_FCHlaK-brL7&export=download"
-]
-
-# 저장될 파일 이름 리스트 (i = 2, 3, 4, 5)
-file_names = [f"chunk_{i}.bin" for i in range(2, 6)]
-
-# 반복문을 통해 파일 다운로드
-for link, file_name in zip(links, file_names):
-    print(f"Downloading {file_name} from {link}...")
-    response = requests.get(link, stream=True)
-
-    if response.status_code == 200:
-        with open(file_name, "wb") as file:
-            for chunk in response.iter_content(chunk_size=8192):
-                file.write(chunk)
-        print(f"{file_name} downloaded successfully!")
-    else:
-        print(f"Failed to download {file_name}. Status code: {response.status_code}")
-
-print("All downloads completed!")
-
 parts1 = ['chunk_0.bin', 'chunk_1.bin', 'chunk_2.bin', 'chunk_3.bin', 'chunk_4.bin', 'chunk_5.bin']
 merge_files('model_state_dict.pt', parts1)
 
@@ -65,8 +45,64 @@ print('bertmodel 다운 중...')
 bertmodel = BertModel.from_pretrained("kobert_base_v1", return_dict=False)
 print('bertmodel 다운 완료!')
 
-# print('tokenizer 다운 중...')
+print('tokenizer 다운 중...')
 tokenizer = KoBERTTokenizer.from_pretrained('skt/kobert-base-v1')
 vocab = nlp.vocab.BERTVocab.from_sentencepiece(tokenizer.vocab_file, padding_token='[PAD]')
 tok = tokenizer.tokenize
 print('tokenizer 다운 완료!')
+
+# model_state_dict.pt 다운로드
+print("model_state_dict 다운 중..")
+
+print("model_state_dict 다운 완료..")
+
+
+# Bert DataSet & Classifier
+
+class BERTDataset(Dataset):
+    def __init__(self, dataset, sent_idx, label_idx, bert_tokenizer, vocab, max_len,
+                 pad, pair):
+        transform = nlp.data.BERTSentenceTransform(
+            bert_tokenizer, max_seq_length=max_len, vocab=vocab, pad=pad, pair=pair)
+
+        self.sentences = [transform([i[sent_idx]]) for i in dataset] # 문장 변환
+        self.labels = [np.int32(i[label_idx]) for i in dataset] # label 변환
+
+    def __getitem__(self, i):
+        return (self.sentences[i] + (self.labels[i], ))
+
+    def __len__(self): # 전체 데이터셋의 길이 반환
+        return (len(self.labels))
+
+class BERTClassifier(nn.Module):
+  def __init__(self, bert, hidden_size=768, num_classes=5, dr_rate=None, params=None):
+    super(BERTClassifier, self).__init__()
+    self.bert = bert
+    self.dr_rate = dr_rate
+
+    self.classifier = nn.Linear(hidden_size , num_classes)
+    if dr_rate:
+      self.dropout = nn.Dropout(p=dr_rate)
+
+  def gen_attention_mask(self, token_ids, valid_length):
+    attention_mask = torch.zeros_like(token_ids)
+    for i, v in enumerate(valid_length):
+      attention_mask[i][:v] = 1
+    return attention_mask.float()
+
+  def forward(self, token_ids, valid_length, segment_ids):
+    attention_mask = self.gen_attention_mask(token_ids, valid_length)
+    _, pooler = self.bert(input_ids = token_ids, token_type_ids = segment_ids.long(), attention_mask = attention_mask.float().to(token_ids.device))
+    if self.dr_rate:
+        out = self.dropout(pooler)
+    else:
+        out = pooler
+    return self.classifier(out)
+
+
+# load model
+print("model 불러오는 중..")
+device = torch.device("cpu")
+loaded_model = BERTClassifier(bertmodel, dr_rate=0.5).to(device)
+loaded_model.load_state_dict(torch.load("model_state_dict.pt", weights_only=True, map_location=torch.device('cpu')))
+print("model 불러옴!")
