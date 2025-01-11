@@ -1,2 +1,4 @@
 bertmodel_folder/chunk_0.bin filter=lfs diff=lfs merge=lfs -text
 bertmodel_folder/chunk_1.bin filter=lfs diff=lfs merge=lfs -text
+chunk_0.bin filter=lfs diff=lfs merge=lfs -text
+chunk_1.bin filter=lfs diff=lfs merge=lfs -text
