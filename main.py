@@ -33,7 +33,7 @@ def read_root(query: str):
     return {"query" : query}
 
 
-parts1 = ['chunk_0.bin', 'chunk_1.bin', 'chunk_2.bin', 'chunk_3.bin']
+parts1 = ['chunk_0.bin', 'chunk_1.bin']
 merge_files('model_state_dict.pt', parts1)
 
 parts2 = ['bertmodel_folder/chunk_0.bin', 'bertmodel_folder/chunk_1.bin', 'bertmodel_folder/chunk_2.bin', 'bertmodel_folder/chunk_3.bin']
