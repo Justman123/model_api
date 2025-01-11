@@ -14,6 +14,7 @@ from transformers import AdamW
 from transformers.optimization import get_cosine_schedule_with_warmup
 from transformers import BertModel
 from kobert_tokenizer import KoBERTTokenizer
+import shutil
 
 # 압축 파일 병합 함수
 def merge_files(output_path, input_parts):
@@ -32,6 +33,8 @@ def read_root():
 def read_root(query: str):
     return {"query" : query}
 
+total, used, free = shutil.disk_usage('/')
+print(total, used, free)
 
 parts1 = ['chunk_0.bin']
 merge_files('model_state_dict.pt', parts1)
