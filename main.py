@@ -39,14 +39,13 @@ print(total, used, free)
 # parts1 = ['chunk_0.bin']
 # merge_files('model_state_dict.pt', parts1)
 
-# parts2 = ['bertmodel_folder/chunk_0.bin', 'bertmodel_folder/chunk_1.bin', 'bertmodel_folder/chunk_2.bin', 'bertmodel_folder/chunk_3.bin']
-# merge_files('kobert_base_v1/model.safetensors', parts2)
+parts2 = ['bertmodel_folder/chunk_0.bin', 'bertmodel_folder/chunk_1.bin', 'bertmodel_folder/chunk_2.bin', 'bertmodel_folder/chunk_3.bin']
+merge_files('kobert_base_v1/model.safetensors', parts2)
 
 
 # bertmodel & tokenizer 다운로드 
 print('bertmodel 다운 중...')
-# bertmodel = BertModel.from_pretrained("kobert_base_v1", return_dict=False)
-bertmodel = BertModel.from_pretrained('skt/kobert-base-v1', return_dict=False)
+bertmodel = BertModel.from_pretrained("kobert_base_v1", return_dict=False)
 print('bertmodel 다운 완료!')
 
 print('tokenizer 다운 중...')
